@@ -21,8 +21,9 @@ class Instrument extends Sprite{
 	public double getValue() {return value;}
 	public void setValue(double value) {
 		this.value=value;
+		if(min<0)
+			value-=min;
 		angle=(value/(max-min)*180-180/2-90)*Math.PI/180;
-		//angle=20*Math.PI/180;
 	}
 	
 	public void draw(Graphics g) {

@@ -9,23 +9,31 @@ import javax.swing.Timer;
 
 class Ship extends Sprite implements ActionListener {
 	int fuel;
+	double speed;
 	boolean motorOn=false;
 	Color flameColor=Color.YELLOW;
 	Timer timer;
 	
-	public Ship(int x, int y, int w, int h, int fuel) {
+	public Ship(int x, int y, int w, int h, int fuel, int speed) {
 		super(x, y, w, h);
 		this.fuel=fuel;
+		this.speed=speed;
 		timer=new Timer(1000/10, this);
 		timer.setRepeats(true);
 	}
 	
 	public int getFuel() {return fuel;}
+	public int getSpeed() {return (int)speed;}
+	public void setSpeed(int speed) {this.speed=(double)speed;}
 	
-	public boolean getMotorState() {return motorOn;}
+	public boolean isMotorOn() {return motorOn;}
 	public void motorOn() {
 		motorOn=true;
-		timer.start();
+		int kick=Math.min(2, fuel);
+		fuel-=kick;
+		speed-=(double)kick;
+		if(!timer.isRunning())
+			timer.start();
 	}
 	public void motorOff() {
 		motorOn=false;
@@ -34,6 +42,11 @@ class Ship extends Sprite implements ActionListener {
 		
 	public void actionPerformed(ActionEvent e) {
 		flameColor=flameColor==Color.RED?Color.YELLOW:Color.RED;
+	}
+	
+	public void move() {
+		y+=(int)speed;
+		speed+=0.97;
 	}
 	
 	public void draw(Graphics g) {
