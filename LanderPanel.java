@@ -3,31 +3,33 @@
  */
 
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 
-class LanderPanel extends JPanel implements ActionListener {
+class LanderPanel extends JPanel {
 	Background background;
 	Ship ship;
+	Instrument instrumentFuel=new Instrument(16, 16, 128, "Fuel", 0, 125);
+	Instrument instrumentSpeed=new Instrument(16, 128+32, 128, "Speed", -10, 10);
+	Instrument instrumentHeight=new Instrument(16, 256+48, 128, "Height", 0, 400);
 	
-	public LanderPanel(Ship ship, Background background) {
+	public LanderPanel(Background background) {
 		setPreferredSize(new Dimension(640, 480));
-		this.ship=ship;
 		this.background=background;
-		Timer timer=new Timer(1000/60, this);
-		timer.setRepeats(true);
-		timer.start();
 	}
 	
-	public void actionPerformed(ActionEvent e) {
-		repaint();
+	public void setShip(Ship ship) {this.ship=ship;}
+	
+	public void updateInstuments() {
+		instrumentFuel.setValue(ship.getFuel());
+		instrumentHeight.setValue(background.getGroundY()-ship.getY()-ship.getH());
 	}
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		background.draw(g);
+		instrumentFuel.draw(g);
+		instrumentHeight.draw(g);
+		instrumentSpeed.draw(g);
 		ship.draw(g);
 	}
 }
