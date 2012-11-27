@@ -10,7 +10,7 @@ class LanderPanel extends JPanel {
 	Ship ship;
 	Instrument instrumentFuel=new Instrument(16, 16, 128, "Fuel", 0, 125);
 	Instrument instrumentSpeed=new Instrument(16, 128+32, 128, "Speed", -30, 30);
-	Instrument instrumentHeight=new Instrument(16, 256+48, 128, "Height", 0, 200);
+	Instrument instrumentHeight=new Instrument(16, 256+48, 128, "Height", 0, 400);
 	int count, successCount, successRate, failFuelCount, failCrashCount;
 	
 	public LanderPanel(Background background) {

@@ -93,7 +93,7 @@ public class Lander implements ActionListener {
 	
 	public void respawnShip() {
 		Random rnd=new Random(System.currentTimeMillis());
-		ship=new Ship(640/2-32/2, background.getGroundY()-64-200+rnd.nextInt(100), 32, 64, 75+rnd.nextInt(50), rnd.nextInt(10)-5);
+		ship=new Ship(640/2-32/2, background.getGroundY()-64-100-rnd.nextInt(successCount>count/2?300:100), 32, 64, 75+rnd.nextInt(50), rnd.nextInt(10)-5);
 		panel.setShip(ship);
 	}
 	
