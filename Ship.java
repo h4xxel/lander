@@ -4,25 +4,20 @@
  * Ship sprite with basic engine logic
  */
 
+import java.util.Random;
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.Timer;
 
-public class Ship extends Sprite implements ActionListener {
+public class Ship extends Sprite {
 	int fuel;
 	double speed;
 	boolean motorOn=false;
-	Color flameColor=Color.YELLOW;
-	Timer timer;
+	Random rnd;
 	
 	public Ship(int x, int y, int w, int h, int fuel, int speed) {
 		super(x, y, w, h);
 		this.fuel=fuel;
 		this.speed=speed;
-		//Timer for changing the flame colour
-		timer=new Timer(1000/10, this);
-		timer.setRepeats(true);
+		rnd=new Random(System.currentTimeMillis());
 	}
 	
 	public int getFuel() {return fuel;}
@@ -37,17 +32,9 @@ public class Ship extends Sprite implements ActionListener {
 		int kick=Math.min(2, fuel);
 		fuel-=kick;
 		speed-=(double)kick;
-		if(!timer.isRunning())
-			timer.start();
 	}
 	public void motorOff() {
 		motorOn=false;
-		timer.stop();
-	}
-		
-	public void actionPerformed(ActionEvent e) {
-		//Change flame colour
-		flameColor=flameColor==Color.RED?Color.YELLOW:Color.RED;
 	}
 	
 	public void move() {
@@ -64,7 +51,8 @@ public class Ship extends Sprite implements ActionListener {
 		g.drawLine(x, y+h-1, x+w, y+h-1);
 		//Draw flame
 		if(motorOn) {
-			g.setColor(flameColor);
+			//Change flame colour
+			g.setColor(rnd.nextBoolean()?Color.YELLOW:Color.RED);
 			g.drawLine(x, y+h, x+w/2, y+h+h/2);
 			g.drawLine(x+w, y+h, x+w/2, y+h+h/2);
 		}

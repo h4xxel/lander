@@ -84,8 +84,9 @@ public class Lander implements ActionListener {
 		else
 			ship.motorOff();
 		ship.move();
-
-		panel.repaint();
+		
+		if(e!=null)
+			panel.repaint();
 		
 		//Check if simulation should end
 		if(ship.getY()+ship.getH()>=background.getGroundY()||ship.getFuel()<=0) {
