@@ -1,4 +1,5 @@
 #lander
+MAKEFLAGS += --no-print-directory
 JAVAC=javac
 JAR=jar
 RM=rm -f
@@ -9,19 +10,23 @@ SRCFILES=$(wildcard *.java)
 OBJFILES=$(SRCFILES:.java=.class)
 BINFILE=lander.jar
 
-.PHONY: all clean
+.PHONY: all jar clean
 
-all: ${OBJFILES}
+all:
+	@mkdir -p build
+	@make jar
+
+jar: ${OBJFILES}
 	@echo " [ JAR ] $(BINFILE)"
 	@cd build && $(JAR) -cfm ../$(BINFILE) ../lander.manifest *.class
 	@chmod +x lander.jar
 	
 clean:
-	@echo " [ RM  ] build/*.class"
-	@$(RM) build/*.class
+	@echo " [ RM  ] build/"
+	@$(RM) -r build
 	@echo " [ RM  ] $(BINFILE)"
 	@$(RM) $(BINFILE)
-
+	
 %.class: %.java
 	@echo " [JAVAC] $<"
 	@$(JAVAC) $(JAVAFLAGS) "$<"
