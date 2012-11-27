@@ -52,9 +52,13 @@ class Ship extends Sprite implements ActionListener {
 	public void draw(Graphics g) {
 		g.setColor(Color.WHITE);
 		g.drawLine(x+w/2, y, x, y+h-1);
-		g.drawLine(x+w/2, y, x+w-1, y+h-1);
-		if(motorOn)
+		g.drawLine(x+w/2, y, x+w, y+h-1);
+		g.drawLine(x, y+h-1, x+w, y+h-1);
+		if(motorOn) {
 			g.setColor(flameColor);
-		g.drawLine(x, y+h-1, x+w-1, y+h-1);
+			g.drawLine(x, y+h, x+w/2, y+h*2);
+			g.drawLine(x+w, y+h, x+w/2, y+h*2);
+		}
+		
 	}
 }

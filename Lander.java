@@ -2,11 +2,12 @@
  *  Copyright 2012 Axel Isaksson
  */
 
+import java.lang.Throwable;
 import java.util.Random;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Lander implements ActionListener {
@@ -18,10 +19,13 @@ public class Lander implements ActionListener {
 	
 	int count=0, successCount=0;
 	
-	public Lander() {
+	public Lander(int iterations) {
 		background=new Background(640, 480);
 		panel=new LanderPanel(background);
 		respawnShip();
+		
+		for(; count<iterations;)
+			actionPerformed(null);
 		
 		timer=new Timer(1000/8, this);
 		timer.setRepeats(true);
@@ -33,8 +37,6 @@ public class Lander implements ActionListener {
 		frame.getContentPane().add(panel);
 		frame.pack();
 		frame.setVisible(true);
-		for(; count<1000;)
-			actionPerformed(null);
 		timer.start();
 	}
 	
@@ -95,7 +97,22 @@ public class Lander implements ActionListener {
 	}
 	
 	public static void main(String args[]) {
-		new Lander();
+		int iterations;
+		try {
+			if(args[0].equals("-h")||args[0].equals("--help")) {
+				System.out.println("lander - moon landing simulator with AI");
+				System.out.println("Axel Isaksson 2012");
+				System.out.println("Usage:");
+				System.out.println("lander		- run lander");
+				System.out.println("lander	[n]	- run lander with n initial iterations");
+				return;
+			}
+			iterations=new Integer(args[0].replace("-", ""));
+		} catch(Throwable e) {
+			iterations=0;
+		}
+		
+		new Lander(iterations);
 	}
 }
 

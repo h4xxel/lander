@@ -30,7 +30,10 @@ class ShipAI {
 		int a=cases[height][fuel][speed][0];
 		int b=cases[height][fuel][speed][1];
 		boolean run=a==b?new Random(System.currentTimeMillis()).nextBoolean():a<b;
-		//TODO: do not add duplicates
+		ShipAIList l;
+		for(l=list; l!=null; l=l.next)
+			if(l.height==height&&l.fuel==fuel&&l.speed==speed)
+				return run;
 		list=new ShipAIList(height, fuel, speed, run, list);
 		return run;
 	}

@@ -1,4 +1,4 @@
-#Lander
+#lander
 JAVAC=javac
 JAR=jar
 RM=rm -f
