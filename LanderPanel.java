@@ -1,16 +1,20 @@
 /* lander
- *  Copyright 2012 Axel Isaksson
+ * Copyright 2012 Axel Isaksson
+ * 
+ * Window panel responsible for drawing scene, instruments, statistics and sprite
  */
 
 import java.awt.*;
 import javax.swing.JPanel;
 
-class LanderPanel extends JPanel {
+public class LanderPanel extends JPanel {
 	Background background;
 	Ship ship;
+	
 	Instrument instrumentFuel=new Instrument(16, 16, 128, "Fuel", 0, 125);
 	Instrument instrumentSpeed=new Instrument(16, 128+32, 128, "Speed", -30, 30);
 	Instrument instrumentHeight=new Instrument(16, 256+48, 128, "Height", 0, 400);
+	
 	int count, successCount, successRate, failFuelCount, failCrashCount;
 	
 	public LanderPanel(Background background) {
@@ -23,6 +27,7 @@ class LanderPanel extends JPanel {
 	public void updateInstuments() {
 		instrumentFuel.setValue(ship.getFuel());
 		instrumentSpeed.setValue(-1*ship.getSpeed());
+		//Height over ground level
 		instrumentHeight.setValue(background.getGroundY()-ship.getY()-ship.getH());
 	}
 	
@@ -30,6 +35,7 @@ class LanderPanel extends JPanel {
 		this.count=count;
 		this.successCount=successCount;
 		this.failFuelCount=failFuelCount;
+		//Calculate crash count and success rate from values above
 		this.failCrashCount=count-successCount-failFuelCount;
 		this.successRate=100*successCount/count;
 	}
@@ -37,18 +43,22 @@ class LanderPanel extends JPanel {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
+		//Background
 		background.draw(g);
+		
+		//Instruments
 		instrumentFuel.draw(g);
 		instrumentHeight.draw(g);
 		instrumentSpeed.draw(g);
 		
+		//Statistics
 		g.drawString("Number of tries: "+count, 400, 16);
 		g.drawString("of which succeeded: "+successCount, 400, 16+16);
 		g.drawString("of which crashed to ground: "+failCrashCount, 400, 16+32);
 		g.drawString("of which ran out of fuel: "+failFuelCount, 400, 16+48);
 		g.drawString("Success rate: "+successRate+"%", 400, 32+64);
 		
-		
+		//Ship
 		ship.draw(g);
 	}
 }

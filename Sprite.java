@@ -1,10 +1,12 @@
 /* lander
- *  Copyright 2012 Axel Isaksson
+ * Copyright 2012 Axel Isaksson
+ * 
+ * Generic sprite parent class
  */
  
 import java.awt.*;
 
-abstract class Sprite {
+public abstract class Sprite {
 	protected int x, y, w, h;
 	
 	public Sprite(int w, int h) {

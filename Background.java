@@ -1,17 +1,20 @@
 /* lander
- *  Copyright 2012 Axel Isaksson
+ * Copyright 2012 Axel Isaksson
+ * 
+ * Background of the scene with a random surface landscape
  */
 
 import java.util.Random;
 import java.awt.*;
 
-class Background {
+public class Background {
 	protected int w, h, groundY;
 	Polygon ground=new Polygon();
 	
 	public Background(int w, int h) {
 		groundY=h-20;
 		resize(w, h);
+		//Generate random ground, except for the landing spot which is flat
 		Random rnd=new Random(System.currentTimeMillis());
 		for(int x=0; x-10<w; x+=10) {
 			int y=x>w/2-64&&x<w/2+64?groundY:groundY-5+rnd.nextInt(10);
@@ -33,6 +36,7 @@ class Background {
 		g.fillRect(0, 0, w, h);
 		g.setColor(Color.WHITE);
 		//g.drawLine(0, groundY, w, groundY);
+		//Draw ground
 		g.fillPolygon(ground);
 	}
 }
