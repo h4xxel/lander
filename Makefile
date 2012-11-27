@@ -1,5 +1,5 @@
 #lander
-MAKEFLAGS += --no-print-directory
+MAKEFLAGS+=--no-print-directory
 JAVAC=javac
 JAR=jar
 RM=rm -f
