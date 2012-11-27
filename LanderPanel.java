@@ -22,7 +22,7 @@ class LanderPanel extends JPanel {
 	
 	public void updateInstuments() {
 		instrumentFuel.setValue(ship.getFuel());
-		instrumentSpeed.setValue(ship.getSpeed());
+		instrumentSpeed.setValue(-1*ship.getSpeed());
 		instrumentHeight.setValue(background.getGroundY()-ship.getY()-ship.getH());
 	}
 	

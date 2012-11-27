@@ -78,7 +78,7 @@ public class Lander implements ActionListener {
 			if(ship.getFuel()<=0&&ship.getY()+ship.getH()<background.getGroundY()) {
 				failFuelCount++;
 				success=false;
-			}else if(ship.getSpeed()>10)
+			} else if(ship.getSpeed()>10)
 				success=false;
 			else
 				success=true;
@@ -93,7 +93,7 @@ public class Lander implements ActionListener {
 	
 	public void respawnShip() {
 		Random rnd=new Random(System.currentTimeMillis());
-		ship=new Ship(640/2-32/2, background.getGroundY()-200+rnd.nextInt(100), 32, 32, 75+rnd.nextInt(50), rnd.nextInt(10)-5);
+		ship=new Ship(640/2-32/2, background.getGroundY()-64-200+rnd.nextInt(100), 32, 64, 75+rnd.nextInt(50), rnd.nextInt(10)-5);
 		panel.setShip(ship);
 	}
 	
@@ -104,8 +104,8 @@ public class Lander implements ActionListener {
 				System.out.println("lander - moon landing simulator with AI");
 				System.out.println("Axel Isaksson 2012");
 				System.out.println("Usage:");
-				System.out.println("lander		- run lander");
-				System.out.println("lander	[n]	- run lander with n initial iterations");
+				System.out.println("	lander		- run lander");
+				System.out.println("	lander	[n]	- run lander with n initial iterations");
 				return;
 			}
 			iterations=new Integer(args[0].replace("-", ""));
