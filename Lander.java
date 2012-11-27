@@ -60,8 +60,8 @@ public class Lander implements ActionListener {
 		for(; count<iterations;)
 			actionPerformed(null);
 		
-		//Main loop timer at 8 frames
-		timer=new Timer(1000/8, this);
+		//Main loop timer at 16 frames
+		timer=new Timer(1000/16, this);
 		timer.setRepeats(true);
 		
 		//Set up window
