@@ -57,7 +57,7 @@ public class Lander implements ActionListener {
 		respawnShip();
 		
 		//Run initial iterations if specified
-		for(; count<iterations;)
+		while(count<iterations)
 			actionPerformed(null);
 		
 		//Main loop timer at 16 frames
