@@ -17,7 +17,7 @@ public class Lander implements ActionListener {
 	Ship ship;
 	ShipAI ai=new ShipAI(8);
 	
-	int count=0, successCount=0;
+	int count=0, successCount=0, failFuelCount=0;
 	
 	public Lander(int iterations) {
 		background=new Background(640, 480);
@@ -75,9 +75,10 @@ public class Lander implements ActionListener {
 		
 		if(ship.getY()+ship.getH()>=background.getGroundY()||ship.getFuel()<=0) {
 			boolean success;
-			if(ship.getFuel()<=0&&ship.getY()+ship.getH()<background.getGroundY())
+			if(ship.getFuel()<=0&&ship.getY()+ship.getH()<background.getGroundY()) {
+				failFuelCount++;
 				success=false;
-			else if(ship.getSpeed()>10)
+			}else if(ship.getSpeed()>10)
 				success=false;
 			else
 				success=true;
@@ -85,7 +86,7 @@ public class Lander implements ActionListener {
 			count++;
 			if(success)
 				successCount++;
-			panel.updateStatistics(count, successCount);
+			panel.updateStatistics(count, successCount, failFuelCount);
 			respawnShip();
 		}
 	}
