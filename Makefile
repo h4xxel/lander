@@ -18,7 +18,7 @@ all: ${OBJFILES}
 	
 clean:
 	@echo " [ RM  ] build/*.class"
-	@$(RM) "build/*.class"
+	@$(RM) build/*.class
 	@echo " [ RM  ] $(BINFILE)"
 	@$(RM) $(BINFILE)
 
