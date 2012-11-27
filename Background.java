@@ -33,6 +33,6 @@ class Background {
 		g.fillRect(0, 0, w, h);
 		g.setColor(Color.WHITE);
 		//g.drawLine(0, groundY, w, groundY);
-		g.drawPolygon(ground);
+		g.fillPolygon(ground);
 	}
 }
