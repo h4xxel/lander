@@ -120,8 +120,11 @@ public class Lander implements ActionListener {
 			} else if(ship.getSpeed()>10) {
 				success=false;
 				panel.setShip(null);
-			} else
+			} else {
+				ship.setY(background.getGroundY()-ship.getH());
+				panel.updateInstuments();
 				success=true;
+			}
 			
 			//Make AI learn from this run
 			ai.learn(success);
