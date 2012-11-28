@@ -6,6 +6,7 @@
 
 import java.lang.Throwable;
 import java.util.Random;
+import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
@@ -43,16 +44,21 @@ class ShipAdapter implements AIAdapter {
 
 public class Lander implements ActionListener {
 	Timer timer;
+	Random rnd=new Random(System.currentTimeMillis());
 	LanderPanel panel;
 	Background background;
 	Ship ship;
 	ShipAI ai;
+	Particle explosion[];
+	
+	int sem=0;
 	
 	int count=0, successCount=0, failFuelCount=0;
 	
 	public Lander(int iterations) {
 		background=new Background(640, 480);
-		panel=new LanderPanel(background);
+		explosion=new Particle[100];
+		panel=new LanderPanel(background, explosion);
 		ai=new ShipAI(8, ship, background, new ShipAdapter());
 		respawnShip();
 		
@@ -77,6 +83,20 @@ public class Lander implements ActionListener {
 	
 	public void actionPerformed(ActionEvent e) {
 		//Main loop, updates panel view, runs engine
+		if(e!=null)
+			panel.repaint();
+		//If we have no ship, make an explosion and restart simulation
+		if(ship==null) {
+			if(e==null) {
+				respawnShip();
+				return;
+			}
+			for(int i=0; i<explosion.length; i++)
+				explosion[i].move();
+			if(sem++==10)
+				respawnShip();
+			return;
+		}
 		panel.updateInstuments();
 		
 		if(ai.runEngine())
@@ -85,9 +105,6 @@ public class Lander implements ActionListener {
 			ship.motorOff();
 		ship.move();
 		
-		if(e!=null)
-			panel.repaint();
-		
 		//Check if simulation should end
 		if(ship.getY()+ship.getH()>=background.getGroundY()||ship.getFuel()<=0) {
 			boolean success;
@@ -95,9 +112,11 @@ public class Lander implements ActionListener {
 			if(ship.getFuel()<=0&&ship.getY()+ship.getH()<background.getGroundY()) {
 				failFuelCount++;
 				success=false;
-			} else if(ship.getSpeed()>10)
+				panel.setShip(null);
+			} else if(ship.getSpeed()>10) {
 				success=false;
-			else
+				panel.setShip(null);
+			} else
 				success=true;
 			
 			//Make AI learn from this run
@@ -108,14 +127,19 @@ public class Lander implements ActionListener {
 				successCount++;
 			panel.updateStatistics(count, successCount, failFuelCount);
 			
-			//Restart simulation
-			respawnShip();
+			for(int i=0; i<explosion.length; i++) {
+				Color c=new Color(rnd.nextInt(64)+128, rnd.nextInt(256), 0);
+				explosion[i]=new Particle(ship.getX()+ship.getW()/2, ship.getY()+ship.getH()/2, rnd.nextDouble()*16-8, rnd.nextDouble()*16-8, c);
+			}
+			
+			ship.motorOff();
+			ship=null;
 		}
 	}
 	
 	public void respawnShip() {
 		//Restart simulation with a new ship
-		Random rnd=new Random(System.currentTimeMillis());
+		sem=0;
 		ship=new Ship(640/2-32/2, background.getGroundY()-64-100-rnd.nextInt(successCount>count/2?300:100), 32, 64, 75+rnd.nextInt(50), rnd.nextInt(10)-5);
 		panel.setShip(ship);
 		ai.setShip(ship);

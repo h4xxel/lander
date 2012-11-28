@@ -28,6 +28,7 @@ public class ShipAI {
 	Ship ship;
 	Background background;
 	AIAdapter adapter;
+	Random rnd;
 	
 	public ShipAI(int indecies, Ship ship, Background background, AIAdapter adapter) {
 		//Array containing all the possible cases and two counters for run/don't run engine
@@ -36,6 +37,8 @@ public class ShipAI {
 		this.ship=ship;
 		this.background=background;
 		this.adapter=adapter;
+		
+		rnd=new Random(System.currentTimeMillis());
 	}
 	
 	public void setShip(Ship ship) {this.ship=ship;}
@@ -48,7 +51,7 @@ public class ShipAI {
 		//Figure out if we should run the engine or not based on the current ship status ('height', 'fuel', 'speed')
 		int a=cases[hi][fi][si][0]; //Do not run
 		int b=cases[hi][fi][si][1]; //Run
-		boolean run=a==b?new Random(System.currentTimeMillis()).nextBoolean():a<b;
+		boolean run=a==b?rnd.nextBoolean():a<b;
 		
 		//The algorithm seems to work just as well, if not even better if we add duplicates to decision list
 		/*for(ShipAIList l=list; l!=null; l=l.next)

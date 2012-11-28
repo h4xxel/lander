@@ -45,7 +45,6 @@ public class Ship extends Sprite {
 	
 	public void draw(Graphics g) {
 		//Draw ship
-		g.setColor(Color.WHITE);
 		g.drawLine(x+w/2, y, x, y+h-1);
 		g.drawLine(x+w/2, y, x+w, y+h-1);
 		g.drawLine(x, y+h-1, x+w, y+h-1);
@@ -55,6 +54,7 @@ public class Ship extends Sprite {
 			g.setColor(rnd.nextBoolean()?Color.YELLOW:Color.RED);
 			g.drawLine(x, y+h, x+w/2, y+h+h/2);
 			g.drawLine(x+w, y+h, x+w/2, y+h+h/2);
+			g.setColor(Color.WHITE);
 		}
 	}
 }

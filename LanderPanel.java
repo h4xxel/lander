@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 public class LanderPanel extends JPanel {
 	Background background;
 	Ship ship;
+	Particle explosion[];
 	
 	Instrument instrumentFuel=new Instrument(16, 16, 128, "Fuel", 0, 125);
 	Instrument instrumentSpeed=new Instrument(16, 128+32, 128, "Speed", -30, 30);
@@ -17,9 +18,10 @@ public class LanderPanel extends JPanel {
 	
 	int count, successCount, successRate, failFuelCount, failCrashCount;
 	
-	public LanderPanel(Background background) {
+	public LanderPanel(Background background, Particle explosion[]) {
 		setPreferredSize(new Dimension(640, 480));
 		this.background=background;
+		this.explosion=explosion;
 	}
 	
 	public void setShip(Ship ship) {this.ship=ship;}
@@ -58,7 +60,11 @@ public class LanderPanel extends JPanel {
 		g.drawString("of which ran out of fuel: "+failFuelCount, 400, 16+48);
 		g.drawString("Success rate: "+successRate+"%", 400, 32+64);
 		
-		//Ship
-		ship.draw(g);
+		//Draw either ship or explosion when the ship is broken
+		if(ship==null)
+			for(Particle p:explosion)
+				p.draw(g);
+		else
+			ship.draw(g);
 	}
 }
