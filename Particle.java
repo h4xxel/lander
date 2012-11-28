@@ -20,6 +20,7 @@ public class Particle {
 	}
 	
 	public void move() {
+		//Update position and speed according to gravity
 		x+=hspeed;
 		y+=vspeed;
 		vspeed+=0.97;

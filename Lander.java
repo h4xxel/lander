@@ -51,6 +51,8 @@ public class Lander implements ActionListener {
 	ShipAI ai;
 	Particle explosion[];
 	
+	//Semaphore for pausing logic during a finished run to display explosion, etc..
+	//Certainly not the best way of doing it but it works well enough
 	int sem=0;
 	
 	int count=0, successCount=0, failFuelCount=0;
@@ -85,9 +87,11 @@ public class Lander implements ActionListener {
 		//Main loop, updates panel view, runs engine
 		if(e!=null)
 			panel.repaint();
+			
 		//If we have no ship, make an explosion and restart simulation
 		if(ship==null) {
 			if(e==null) {
+				//Unless we run without graphics, in which case we just restart the simulation
 				respawnShip();
 				return;
 			}
@@ -97,13 +101,13 @@ public class Lander implements ActionListener {
 				respawnShip();
 			return;
 		}
-		panel.updateInstuments();
 		
 		if(ai.runEngine())
 			ship.motorOn();
 		else
 			ship.motorOff();
 		ship.move();
+		panel.updateInstuments();
 		
 		//Check if simulation should end
 		if(ship.getY()+ship.getH()>=background.getGroundY()||ship.getFuel()<=0) {
@@ -127,6 +131,7 @@ public class Lander implements ActionListener {
 				successCount++;
 			panel.updateStatistics(count, successCount, failFuelCount);
 			
+			//Create particles with random speed for explosion
 			for(int i=0; i<explosion.length; i++) {
 				Color c=new Color(rnd.nextInt(64)+128, rnd.nextInt(256), 0);
 				explosion[i]=new Particle(ship.getX()+ship.getW()/2, ship.getY()+ship.getH()/2, rnd.nextDouble()*16-8, rnd.nextDouble()*16-8, c);

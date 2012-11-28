@@ -21,7 +21,7 @@ public class Ship extends Sprite {
 	}
 	
 	public int getFuel() {return fuel;}
-	public int getSpeed() {return (int)speed;}
+	public int getSpeed() {return (int)Math.round(speed);}
 	public void setSpeed(int speed) {this.speed=(double)speed;}
 	
 	//Motor control
