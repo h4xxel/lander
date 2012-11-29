@@ -63,6 +63,10 @@ public class Lander implements ActionListener {
 		panel=new LanderPanel(background, explosion);
 		ai=new ShipAI(8, ship, background, new ShipAdapter());
 		respawnShip();
+		for(int i=0; i<explosion.length; i++) {
+			Color c=new Color(rnd.nextInt(64)+128, rnd.nextInt(256), 0);
+			explosion[i]=new Particle(ship.getX()+ship.getW()/2, ship.getY()+ship.getH()/2, rnd.nextDouble()*16-8, rnd.nextDouble()*16-8, c);
+		}
 		
 		//Run initial iterations if specified
 		while(count<iterations)
@@ -107,7 +111,8 @@ public class Lander implements ActionListener {
 		else
 			ship.motorOff();
 		ship.move();
-		panel.updateInstuments();
+		if(e!=null)
+			panel.updateInstuments();
 		
 		//Check if simulation should end
 		if(ship.getY()+ship.getH()>=background.getGroundY()||ship.getFuel()<=0) {
@@ -132,10 +137,11 @@ public class Lander implements ActionListener {
 			count++;
 			if(success)
 				successCount++;
-			panel.updateStatistics(count, successCount, failFuelCount);
+			if(e!=null)
+				panel.updateStatistics(count, successCount, failFuelCount);
 			
 			//Create particles with random speed for explosion
-			for(int i=0; i<explosion.length; i++) {
+			for(int i=0; e!=null&&i<explosion.length; i++) {
 				Color c=new Color(rnd.nextInt(64)+128, rnd.nextInt(256), 0);
 				explosion[i]=new Particle(ship.getX()+ship.getW()/2, ship.getY()+ship.getH()/2, rnd.nextDouble()*16-8, rnd.nextDouble()*16-8, c);
 			}
