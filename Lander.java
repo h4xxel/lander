@@ -71,6 +71,8 @@ public class Lander implements ActionListener {
 		//Run initial iterations if specified
 		while(count<iterations)
 			actionPerformed(null);
+		if(iterations>0)
+			panel.updateStatistics(count, successCount, failFuelCount);
 		
 		//Main loop timer at 16 frames
 		timer=new Timer(1000/16, this);
