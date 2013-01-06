@@ -54,10 +54,6 @@ public class ShipAI {
 		boolean run=a==b?rnd.nextBoolean():a<b;
 		
 		//The algorithm seems to work just as well, if not even better if we add duplicates to decision list
-		/*for(ShipAIList l=list; l!=null; l=l.next)
-			if(l.height==height&&l.fuel==fuel&&l.speed==speed)
-				return run;*/
-		
 		//Prepend the made decision to the learn list
 		list=new AILearnList(hi, fi, si, run, list);
 		

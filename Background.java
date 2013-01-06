@@ -35,7 +35,7 @@ public class Background {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, w, h);
 		g.setColor(Color.WHITE);
-		//g.drawLine(0, groundY, w, groundY);
+		
 		//Draw ground
 		g.fillPolygon(ground);
 	}

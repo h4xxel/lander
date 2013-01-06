@@ -34,16 +34,16 @@ public class Ship extends Sprite {
 	}
 	
 	public void move() {
-		//Do gravity
-		y+=(int)speed;
-		speed+=0.97;
-		
 		//Running motor drains fuel and accellerates ship
 		if(motorOn) {
 			int kick=Math.min(2, fuel);
 			fuel-=kick;
 			speed-=(double)kick;
 		}
+		
+		//Do gravity
+		y+=(int)speed;
+		speed+=0.97;
 	}
 	
 	public void draw(Graphics g) {
