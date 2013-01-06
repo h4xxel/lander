@@ -1,5 +1,5 @@
 /* lander
- * Copyright 2012 Axel Isaksson
+ * Copyright 2012-2013 Axel Isaksson
  * 
  * Main class setting up simulation
  */
@@ -168,7 +168,7 @@ public class Lander implements ActionListener {
 		try {
 			if(args[0].equals("-h")||args[0].equals("--help")) {
 				System.out.println("lander - moon landing simulator with AI");
-				System.out.println("Axel Isaksson 2012");
+				System.out.println("Axel Isaksson 2012-2013");
 				System.out.println("Usage:");
 				System.out.println("	lander		- run lander");
 				System.out.println("	lander	[n]	- run lander with n initial iterations");

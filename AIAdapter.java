@@ -1,5 +1,5 @@
 /* lander
- * Copyright 2012 Axel Isaksson
+ * Copyright 2012-2013 Axel Isaksson
  * 
  * AI adapter interface for converting height, fuel and speed values to AI indecies
  */

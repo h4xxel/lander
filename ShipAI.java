@@ -1,5 +1,5 @@
 /* lander
- * Copyright 2012 Axel Isaksson
+ * Copyright 2012-2013 Axel Isaksson
  * 
  * Ship AI, decides on motor control and learns from its decisions
  */
