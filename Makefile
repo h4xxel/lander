@@ -14,7 +14,7 @@ BINFILE=lander.jar
 
 all:
 	@mkdir -p build
-	@make jar
+	+@make jar
 
 jar: ${OBJFILES}
 	@echo " [ JAR ] $(BINFILE)"
