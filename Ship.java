@@ -27,11 +27,7 @@ public class Ship extends Sprite {
 	//Motor control
 	public boolean isMotorOn() {return motorOn;}
 	public void motorOn() {
-		//Running motor drains fuel and accellerates ship
 		motorOn=true;
-		int kick=Math.min(2, fuel);
-		fuel-=kick;
-		speed-=(double)kick;
 	}
 	public void motorOff() {
 		motorOn=false;
@@ -41,6 +37,13 @@ public class Ship extends Sprite {
 		//Do gravity
 		y+=(int)speed;
 		speed+=0.97;
+		
+		//Running motor drains fuel and accellerates ship
+		if(motorOn) {
+			int kick=Math.min(2, fuel);
+			fuel-=kick;
+			speed-=(double)kick;
+		}
 	}
 	
 	public void draw(Graphics g) {

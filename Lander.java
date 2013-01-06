@@ -63,6 +63,8 @@ public class Lander implements ActionListener {
 		panel=new LanderPanel(background, explosion);
 		ai=new ShipAI(8, ship, background, new ShipAdapter());
 		respawnShip();
+		
+		//Init explosion particles
 		for(int i=0; i<explosion.length; i++) {
 			Color c=new Color(rnd.nextInt(64)+128, rnd.nextInt(256), 0);
 			explosion[i]=new Particle(ship.getX()+ship.getW()/2, ship.getY()+ship.getH()/2, rnd.nextDouble()*16-8, rnd.nextDouble()*16-8, c);
@@ -91,6 +93,7 @@ public class Lander implements ActionListener {
 	
 	public void actionPerformed(ActionEvent e) {
 		//Main loop, updates panel view, runs engine
+		//e=null runs the simulation without updating the gui (used for initial iterations)
 		if(e!=null)
 			panel.repaint();
 			
@@ -176,6 +179,7 @@ public class Lander implements ActionListener {
 			}
 			iterations=new Integer(args[0].replace("-", ""));
 		} catch(Throwable e) {
+			//Invalid or no arguments specified, default to 0 initial iterations
 			iterations=0;
 		}
 		
