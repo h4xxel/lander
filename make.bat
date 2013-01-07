@@ -13,6 +13,7 @@ javac -d build test\TestLander.java
 echo [ JAR ] lander.jar
 cd build
 jar -cfm ..\lander.jar ..\lander.manifest *.class
+cd ..
 goto end
 
 :clean
