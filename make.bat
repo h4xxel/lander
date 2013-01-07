@@ -9,15 +9,15 @@ if x%1==xclean goto clean
 mkdir build
 echo [JAVAC] *.java
 javac -d build *.java
-javac -d build test/TestLander.java
+javac -d build test\TestLander.java
 echo [ JAR ] lander.jar
 cd build
-jar -cfm ../lander.jar ../lander.manifest *.class
+jar -cfm ..\lander.jar ..\lander.manifest *.class
 goto end
 
 :clean
 echo [ RM  ] build
-del build/*.class
+del build\*.class
 rmdir build
 echo [ RM  ] lander.jar
 del lander.jar
