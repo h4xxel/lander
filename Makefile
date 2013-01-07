@@ -7,6 +7,7 @@ RM=rm -f
 JAVAFLAGS+=-d build
 
 SRCFILES=$(wildcard *.java)
+SRCFILES+=test/TestLander.java
 OBJFILES=$(SRCFILES:.java=.class)
 BINFILE=lander.jar
 
@@ -16,14 +17,14 @@ all:
 	@mkdir -p build
 	+@make jar
 
-jar: ${OBJFILES}
+jar: ${OBJFILES} test
 	@echo " [ JAR ] $(BINFILE)"
 	@cd build && $(JAR) -cfm ../$(BINFILE) ../lander.manifest *.class
 	@chmod +x lander.jar
 	
 clean:
 	@echo " [ RM  ] build/"
-	@$(RM) -r build
+	@$(RM) -rf build
 	@echo " [ RM  ] $(BINFILE)"
 	@$(RM) $(BINFILE)
 	

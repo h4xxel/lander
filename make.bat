@@ -6,15 +6,19 @@ if x%1==xall goto all
 if x%1==xclean goto clean
 
 :all
+mkdir build
 echo [JAVAC] *.java
-javac *.java
+javac -d build *.java
+javac -d build test/TestLander.java
 echo [ JAR ] lander.jar
-jar -cfm lander.jar lander.manifest *.class
+cd build
+jar -cfm ../lander.jar ../lander.manifest *.class
 goto end
 
 :clean
-echo [ RM  ] *.class
-del *.class
+echo [ RM  ] build
+del build/*.class
+rmdir build
 echo [ RM  ] lander.jar
 del lander.jar
 goto end
